@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azka Fida Yani Alwi - Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root {
+      --primary: #dcc9a9; /* Cream */
+      --secondary: #b83a2d; /* Red */
+      --accent: #4e6851; /* Green */
+      --light: #f2ebde; /* Light Cream */
+      --dark: #212842; /* Dark Blue */
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      min-height: 100vh;
+      padding-bottom: 80px;
+      background-color: var(--light);
+      position: relative;
+    }
+    
+    /* Background untuk setiap section */
+    #home {
+      background: linear-gradient(rgb(78, 104, 81), rgb(78, 104, 81)), 
+                  url('') no-repeat center center fixed;
+      background-size: cover;
+    }
+    
+    #about, #skills, #contact {
+      background: linear-gradient(rgb(78, 104, 81), rgb(78, 104, 81));
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation Styles */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--accent);
+      border-top: 1px solid var(--secondary);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.314);
+      z-index: 100;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .nav-container {
+      display: flex;
+      width: 100%;
+      max-width: 800px;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 15px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--light);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .nav-item.active {
+      background: var(--secondary);
+      color: var(--light);
+      transform: translateY(-10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+    
+    .nav-item i {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+      color: var(--light);
+    }
+    
+    .nav-item:hover:not(.active) {
+      background: rgba(220, 201, 169, 0.2);
+      transform: translateY(-5px);
+    }
+    
+    /* Section Styles */
+    section {
+      padding: 100px 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .section-content {
+      width: 100%;
+      padding: 40px;
+      border-radius: 20px;
+      background: #ffffff88;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile-img {
+      width: 300px;
+      height: 300px;
+      border-radius: 25%;
+      object-fit: cover;
+      border: 5px solid var(--primary);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--secondary);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: var(--accent);
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 70px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+    
+    .typing-text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 30px;
+      color: var(--accent);
+      min-height: 60px;
+      height: 2em;
+      display: flex;
+      align-items: center;
+    }
+    
+    .typing-container {
+      position: relative;
+      display: inline-block;
+      height: 1.5em;
+      overflow: hidden;
+    }
+    
+    .typing {
+      display: inline-block;
+      position: relative;
+      color: var(--secondary);
+    }
+    
+    .typing::after {
+      content: '|';
+      position: absolute;
+      right: -0.5em;
+      animation: blink 0.7s infinite;
+      color: var(--accent);
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--secondary);
+      color: var(--light);
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(184, 58, 45, 0.3);
+      border: none;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(184, 58, 45, 0.4);
+      background: #9c2e22;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--accent);
+      font-size: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      transform: translateY(-5px);
+      background: var(--secondary);
+      color: var(--light);
+      box-shadow: 0 8px 20px rgba(184, 58, 45, 0.3);
+    }
+    
+    .skill-bars {
+      display: grid;
+      gap: 20px;
+    }
+    
+    .skill-bar {
+      margin-bottom: 15px;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    
+    .progress-bar {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    .progress {
+      height: 100%;
+      background: var(--secondary);
+      border-radius: 6px;
+      position: relative;
+      transition: width 1s ease-in-out;
+    }
+    
+    .contact-info {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    
+    .contact-item i {
+      font-size: 1.5rem;
+      color: var(--secondary);
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    
+    /* Layout Baru untuk Home Section */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Form Styles */
+    input, textarea {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border: 1px solid var(--primary) !important;
+      color: var(--accent) !important;
+    }
+    
+    input::placeholder, textarea::placeholder {
+      color: #a0a0a0 !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section-content {
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.6rem;
+      }
+      
+      .typing-text {
+        font-size: 1.2rem;
+      }
+      
+      .nav-item {
+        padding: 8px 10px;
+        font-size: 0.7rem;
+      }
+      
+      .nav-item i {
+        font-size: 1.2rem;
+      }
+      
+      section {
+        padding: 80px 0;
+      }
+      
+      /* Layout mobile untuk home section */
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .hero-content {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .hero-content p {
+        text-align: center;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+      
+      .profile-img {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Home Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="section-content">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1 class="animate">Azka Fida Yani Alwi</h1>
+            <div class="typing-text animate delay-2">
+              I'm a <span class="typing-container"><span id="role" class="typing"> Photographer </span></span>
+            </div>
+            <p class="text-lg animate delay-2 text-white">
+              Saya seorang yang kreatif dan berdedikasi dalam dunia visual dan teknologi. 
+              Suka mencari tahu banyak hal, ingin menjadi orang sukses dan bermanfaat.
+            </p>
+            <div class="flex animate delay-3">
+              <a href="#contact" class="btn">Contact Me</a>
+            </div>
+            <div class="social-links animate delay-4">
+              <a href="https://instagram.com/Pidaa.ya" target="_blank" class="social-link">
+                <i class="ph ph-instagram-logo"></i>
+              </a>
+              <a href="https://tiktok.com/@pidaa.ya" target="_blank" class="social-link">
+                <i class="ph ph-tiktok-logo"></i>
+              </a>
+              <a href="mailto:azkafida69@gmail.com" class="social-link">
+                <i class="ph ph-envelope"></i>
+              </a>
+              <a href="https://facebook.com/Azka Fya" target="_blank" class="social-link">
+                <i class="ph ph-facebook-logo"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="hero-image animate">
+            <img src="Pidaya.png" 
+                 alt="Azka Fida Yani Alwi" class="profile-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-content">
+        <h2 class="animate">About Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate delay-1">
+          <div>
+            <div class="mb-6">
+              <h3 class="text-xl font-semibold mb-3">Personal Info</h3>
+              <p class="mb-2"><strong>Nama:</strong> Azka Fida Yani Alwi</p>
+              <p class="mb-2"><strong>Tempat, Tanggal Lahir:</strong> Cilacap, 21 Feb 2008</p>
+              <p class="mb-2"><strong>Alamat:</strong> Perumahan Taman Hangtuah Blok C3 No 21</p>
+              <p class="mb-2"><strong>Pendidikan:</strong> SMK</p>
+              <p class="mb-2"><strong>Email:</strong> azkafida69@gmail.com</p>
+              <p><strong>Phone:</strong> 0858 0540 4679</p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-3">Passion & Goals</h3>
+            <p class="mb-4">
+              Saya memiliki minat yang besar dalam bidang fotografi, videografi, dan desain grafis. 
+              Saya senang menciptakan karya visual yang menarik dan bermakna.
+            </p>
+            <p class="mb-4">
+              Saat ini saya sedang mengembangkan kemampuan programming dan editing video untuk 
+              memperluas keahlian saya di bidang kreatif digital.
+            </p>
+            <p>
+              Tujuan saya adalah menjadi profesional di bidang kreatif dan teknologi, serta 
+              menghasilkan karya yang menginspirasi banyak orang.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-content">
+        <h2 class="animate">My Skills</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="animate delay-1">
+            <h3 class="text-xl font-semibold mb-6">Professional Skills</h3>
+            <div class="skill-bars">
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Graphic Design</span>
+                  <span>90%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Videography</span>
+                  <span>85%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Photography</span>
+                  <span>80%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Video Editing</span>
+                  <span>85%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-info">
+                  <span>Programming</span>
+                  <span>70%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="animate delay-2">
+            <h3 class="text-xl font-semibold mb-6">Skills Chart</h3>
+            <div class="chart-container">
+              <canvas id="skillsChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-content">
+        <h2 class="animate">Contact Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="animate delay-1">
+            <h3 class="text-xl font-semibold mb-6">Get in Touch</h3>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="ph ph-phone"></i>
+                <span>0858 0540 4679</span>
+              </div>
+              <div class="contact-item">
+                <i class="ph ph-envelope"></i>
+                <span>azkafida69@gmail.com</span>
+              </div>
+              <div class="contact-item">
+                <i class="ph ph-map-pin"></i>
+                <span>Perumahan Taman Hangtuah Blok C3 No 21</span>
+              </div>
+            </div>
+            <div class="mt-8">
+              <h3 class="text-xl font-semibold mb-4">Follow Me</h3>
+              <div class="flex gap-4">
+                <a href="https://instagram.com/Pidaa.ya" target="_blank" class="social-link">
+                  <i class="ph ph-instagram-logo"></i>
+                </a>
+                <a href="https://tiktok.com/@pidaa.ya" target="_blank" class="social-link">
+                  <i class="ph ph-tiktok-logo"></i>
+                </a>
+                <a href="https://facebook.com/Azka Fya" target="_blank" class="social-link">
+                  <i class="ph ph-facebook-logo"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="animate delay-2">
+            <h3 class="text-xl font-semibold mb-6">Send a Message</h3>
+            <form class="space-y-4">
+              <div>
+                <label for="name" class="block mb-2 font-medium">Name</label>
+                <input type="text" id="name" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your name">
+              </div>
+              <div>
+                <label for="email" class="block mb-2 font-medium">Email</label>
+                <input type="email" id="email" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your email">
+              </div>
+              <div>
+                <label for="message" class="block mb-2 font-medium">Message</label>
+                <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your message"></textarea>
+              </div>
+              <button type="submit" class="btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-container">
+      <a href="#home" class="nav-item active" data-target="home">
+        <i class="ph ph-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="#about" class="nav-item" data-target="about">
+        <i class="ph ph-user"></i>
+        <span>About</span>
+      </a>
+      <a href="#skills" class="nav-item" data-target="skills">
+        <i class="ph ph-graduation-cap"></i>
+        <span>Skills</span>
+      </a>
+      <a href="#contact" class="nav-item" data-target="contact">
+        <i class="ph ph-chats"></i>
+        <span>Contact</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    // Improved Typing animation
+    const roles = ['Photographer', 'Videographer', 'Designer', 'Programmer', 'Editor'];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 100; // ms per character
+    const deletingSpeed = 50; // ms per character
+    const pauseAfterType = 1500; // ms pause after typing
+    const pauseAfterDelete = 500; // ms pause after deleting
+    const roleElement = document.getElementById('role');
+    
+    function typeRole() {
+      const currentRole = roles[roleIndex];
+      
+      if (isDeleting) {
+        // Deleting characters
+        roleElement.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(typeRole, pauseAfterDelete);
+        } else {
+          setTimeout(typeRole, deletingSpeed);
+        }
+      } else {
+        // Typing characters
+        roleElement.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+        
+        if (charIndex === currentRole.length) {
+          // Finished typing this role
+          isDeleting = true;
+          setTimeout(typeRole, pauseAfterType);
+        } else {
+          setTimeout(typeRole, typingSpeed);
+        }
+      }
+    }
+    
+    // Start typing animation
+    setTimeout(typeRole, 1000);
+
+    // Skills chart
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Graphic Designer', 'Videographer', 'Photographer', 'Video Editor', 'Programmer'],
+        datasets: [{
+          label: 'Skill Level',
+          data: [90, 85, 80, 85, 70],
+          backgroundColor: [
+            'rgba(220, 201, 169, 0.8)',
+            'rgba(184, 58, 45, 0.8)',
+            'rgba(78, 104, 81, 0.8)',
+            'rgba(235, 167, 78, 0.8)',
+            'rgba(33, 40, 66, 0.8)'
+          ],
+          borderColor: [
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)',
+            'rgba(255, 255, 255, 1)'
+          ],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: {
+                size: 14,
+                color: '#4e6851'
+              },
+              padding: 20
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.raw}%`;
+              }
+            }
+          }
+        },
+        cutout: '60%',
+        animation: {
+          animateRotate: true,
+          animateScale: true
+        }
+      }
+    });
+
+    // Navigation active state
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section');
+
+    // Set active nav item based on scroll position
+    function setActiveNav() {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (scrollY >= (sectionTop - sectionHeight / 3)) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navItems.forEach(item => {
+        const target = item.getAttribute('data-target');
+        item.classList.remove('active');
+        
+        if (target === current) {
+          item.classList.add('active');
+        }
+      });
+    }
+    
+    // Click event for nav items
+    navItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = this.getAttribute('data-target');
+        
+        navItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        
+        const section = document.getElementById(target);
+        window.scrollTo({
+          top: section.offsetTop,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', setActiveNav);
+    
+    // Initialize
+    setActiveNav();
+    
+    // Animate elements on scroll
+    const animateElements = document.querySelectorAll('.animate');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    
+    animateElements.forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+    
+    // Animate progress bars
+    const progressBars = document.querySelectorAll('.progress');
+    
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const width = entry.target.style.width;
+          entry.target.style.width = '0';
+          setTimeout(() => {
+            entry.target.style.width = width;
+          }, 300);
+        }
+      });
+    }, {
+      threshold: 0.5
+    });
+
+    progressBars.forEach(bar => {
+      barObserver.observe(bar);
+    });
+  </script>
+</body>
+</html>
